@@ -1,0 +1,660 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02C3D87D5AE455ECAF5372B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87538CD739B890E22AC5A36A /* Assets.xcassets */; };
+		04B46D41F17C91C9F357A150 /* DriveOSWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8AA0E17CAF42317C1209473D /* DriveOSWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		23DD22436B209BEC294D774B /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E65A051466B276B14CDC44 /* ActionButton.swift */; };
+		28016174F340F3A4F326CECC /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDDEB80AE514CECE212C62 /* Vehicle.swift */; };
+		29152F7C0516F8681FBF99D9 /* BatteryAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0C73C321F9B882D039AEA /* BatteryAnalyticsView.swift */; };
+		34A5F583F9C8FA08A0451632 /* AuthContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7618EDD9760DBC94B3B90A0D /* AuthContainerView.swift */; };
+		46694984CCDEC1E8DDE71819 /* BatteryGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8E66D8A33075AD340A6E8 /* BatteryGauge.swift */; };
+		503F4681ADF2D79CF27B0C9D /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B42F39F6488CE0A8EE1400D0 /* IQKeyboardManagerSwift */; };
+		512DF764C4DA571990FD243C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF9E0E39241F87BDDDE3F6F /* RegisterView.swift */; };
+		546F2B000E8F4A1BA8A872FF /* VehicleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD886212D7120D986FCD00A /* VehicleRepository.swift */; };
+		67050C11DB5532A5F40C09E9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770A6364D05A370A625B578F /* Theme.swift */; };
+		70E755AD89F1BA903E37F333 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F56DA0E75B699085CFDCFC /* GlassCard.swift */; };
+		7327865665A50828A78A9628 /* ChargingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72A6C6A41638284E4F503F6 /* ChargingAttributes.swift */; };
+		7D65011FB65FEC9640456B68 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D6B8C0AC31E2F005B87D06 /* RootView.swift */; };
+		87A1645EBB04E63B9488C0D8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26BA88178E4CB5D77A78A0A /* SplashView.swift */; };
+		8DDC4EF6D8B964686B976206 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DFC34E1DA45D67E7D74B89 /* TripsView.swift */; };
+		92B50A85D4F1B6F192F327D3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6977CD3CFD3E4094AC96DFD /* ProfileView.swift */; };
+		AA1EC60DD2931BE419F28621 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38743ACCFDF711E91B545B7 /* DashboardView.swift */; };
+		AC2DCBC1DE216C9C2500F882 /* ChargingCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF4B30B78D52F42275AED0B /* ChargingCenterView.swift */; };
+		AFBDD4B8F48E57A0147A4ADB /* ChargingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72A6C6A41638284E4F503F6 /* ChargingAttributes.swift */; };
+		B42063927A11A0D0C2A5F428 /* DriveOSWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F61609D41D449C53038A083 /* DriveOSWidget.swift */; };
+		B9B65933D44FA9768D25688D /* DriveOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326F338B36179CB4D912B6DE /* DriveOSApp.swift */; };
+		C329B2943628D67B6BC71C96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB5A0A0AF01CAB500CCFB8C /* LoginView.swift */; };
+		C7A451FAC86E0A12851BE2A6 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64477F02C27116FB1B60D425 /* Trip.swift */; };
+		FA36D152C37C595422C39655 /* ChargingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81FC1756B3F76CA769BEA64 /* ChargingSession.swift */; };
+		FDAE82C62F9ED54B7D37789C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171CA778BCA85B04CB09D7EE /* ContentView.swift */; };
+		FF5C6FC06C9722981BF8D1E7 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E783F79C8BB70CCDFAEB6F9 /* ForgotPasswordView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE8F39850D1FF20A780D9AF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8215E1B44D01AA6AC4A4F66A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9230605874F37B38484CCC6D;
+			remoteInfo = DriveOSWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		27A0FBA817F4BFB91D461324 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				04B46D41F17C91C9F357A150 /* DriveOSWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		15DC1CE9F50A06025D9E9302 /* DriveOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriveOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		171CA778BCA85B04CB09D7EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1DB5A0A0AF01CAB500CCFB8C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1F61609D41D449C53038A083 /* DriveOSWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveOSWidget.swift; sourceTree = "<group>"; };
+		326F338B36179CB4D912B6DE /* DriveOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveOSApp.swift; sourceTree = "<group>"; };
+		5DD886212D7120D986FCD00A /* VehicleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleRepository.swift; sourceTree = "<group>"; };
+		64477F02C27116FB1B60D425 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		6AF4B30B78D52F42275AED0B /* ChargingCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingCenterView.swift; sourceTree = "<group>"; };
+		7618EDD9760DBC94B3B90A0D /* AuthContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContainerView.swift; sourceTree = "<group>"; };
+		76B8E66D8A33075AD340A6E8 /* BatteryGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryGauge.swift; sourceTree = "<group>"; };
+		770A6364D05A370A625B578F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		7C309E6D61533772FFF5F2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		87538CD739B890E22AC5A36A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8AA0E17CAF42317C1209473D /* DriveOSWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DriveOSWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E783F79C8BB70CCDFAEB6F9 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		A2E65A051466B276B14CDC44 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		A3F56DA0E75B699085CFDCFC /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		A6977CD3CFD3E4094AC96DFD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		A72A6C6A41638284E4F503F6 /* ChargingAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingAttributes.swift; sourceTree = "<group>"; };
+		B7D6B8C0AC31E2F005B87D06 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		C1C0C73C321F9B882D039AEA /* BatteryAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryAnalyticsView.swift; sourceTree = "<group>"; };
+		C81FC1756B3F76CA769BEA64 /* ChargingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingSession.swift; sourceTree = "<group>"; };
+		DFBDDEB80AE514CECE212C62 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		F1DFC34E1DA45D67E7D74B89 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
+		F26BA88178E4CB5D77A78A0A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		F38743ACCFDF711E91B545B7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		FBF9E0E39241F87BDDDE3F6F /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2D7B4878AE53A997BB32428C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				503F4681ADF2D79CF27B0C9D /* IQKeyboardManagerSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C4CF5BE2F06E478E042FC6B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1729CA1B4972B0E8DC554F69 /* Models */,
+				D2943E07092D90C01602F981 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1729CA1B4972B0E8DC554F69 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C81FC1756B3F76CA769BEA64 /* ChargingSession.swift */,
+				64477F02C27116FB1B60D425 /* Trip.swift */,
+				DFBDDEB80AE514CECE212C62 /* Vehicle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		26DF79EA63F0994F1C4753D5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A6977CD3CFD3E4094AC96DFD /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		2D96002818DFF9B064AAF5CC /* BatteryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				C1C0C73C321F9B882D039AEA /* BatteryAnalyticsView.swift */,
+			);
+			path = BatteryAnalytics;
+			sourceTree = "<group>";
+		};
+		318A296A4AE0E241611EFF07 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7618EDD9760DBC94B3B90A0D /* AuthContainerView.swift */,
+				9E783F79C8BB70CCDFAEB6F9 /* ForgotPasswordView.swift */,
+				1DB5A0A0AF01CAB500CCFB8C /* LoginView.swift */,
+				FBF9E0E39241F87BDDDE3F6F /* RegisterView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		3DD8B4B5ADB8B2E21AADBDDD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15DC1CE9F50A06025D9E9302 /* DriveOS.app */,
+				8AA0E17CAF42317C1209473D /* DriveOSWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E994DCD32A039B478C8D654 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				A2E65A051466B276B14CDC44 /* ActionButton.swift */,
+				76B8E66D8A33075AD340A6E8 /* BatteryGauge.swift */,
+				A3F56DA0E75B699085CFDCFC /* GlassCard.swift */,
+				770A6364D05A370A625B578F /* Theme.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		8F7CC3647B35AB314E2045CA /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				F1DFC34E1DA45D67E7D74B89 /* TripsView.swift */,
+			);
+			path = Trips;
+			sourceTree = "<group>";
+		};
+		A3468395C466581CA5ED8F87 = {
+			isa = PBXGroup;
+			children = (
+				D2BF5AC6E91C39BE7CC55228 /* DriveOS */,
+				F9CD0DAD9642DB1D0A754B1D /* DriveOSWidget */,
+				3DD8B4B5ADB8B2E21AADBDDD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A48F3E103AF4F77232F4F9C3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				171CA778BCA85B04CB09D7EE /* ContentView.swift */,
+				326F338B36179CB4D912B6DE /* DriveOSApp.swift */,
+				B7D6B8C0AC31E2F005B87D06 /* RootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B352565E563E4306C90368D7 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				318A296A4AE0E241611EFF07 /* Auth */,
+				2D96002818DFF9B064AAF5CC /* BatteryAnalytics */,
+				E8941FD7B232809C3F3F9D3A /* Charging */,
+				E74A98FC0841159C94C443BF /* Dashboard */,
+				26DF79EA63F0994F1C4753D5 /* Profile */,
+				C177D02E08598B4E984E1698 /* Splash */,
+				8F7CC3647B35AB314E2045CA /* Trips */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C177D02E08598B4E984E1698 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				F26BA88178E4CB5D77A78A0A /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		D2943E07092D90C01602F981 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				5DD886212D7120D986FCD00A /* VehicleRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D2BF5AC6E91C39BE7CC55228 /* DriveOS */ = {
+			isa = PBXGroup;
+			children = (
+				87538CD739B890E22AC5A36A /* Assets.xcassets */,
+				A48F3E103AF4F77232F4F9C3 /* App */,
+				DF03231B68C464969B057CA2 /* Core */,
+				0C4CF5BE2F06E478E042FC6B /* Data */,
+				B352565E563E4306C90368D7 /* Features */,
+			);
+			path = DriveOS;
+			sourceTree = "<group>";
+		};
+		DF03231B68C464969B057CA2 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4E994DCD32A039B478C8D654 /* DesignSystem */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E74A98FC0841159C94C443BF /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F38743ACCFDF711E91B545B7 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E8941FD7B232809C3F3F9D3A /* Charging */ = {
+			isa = PBXGroup;
+			children = (
+				A72A6C6A41638284E4F503F6 /* ChargingAttributes.swift */,
+				6AF4B30B78D52F42275AED0B /* ChargingCenterView.swift */,
+			);
+			path = Charging;
+			sourceTree = "<group>";
+		};
+		F9CD0DAD9642DB1D0A754B1D /* DriveOSWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1F61609D41D449C53038A083 /* DriveOSWidget.swift */,
+				7C309E6D61533772FFF5F2E6 /* Info.plist */,
+			);
+			path = DriveOSWidget;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		20D82768C30499B99EB8C747 /* DriveOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD75733F07AB3DE327703191 /* Build configuration list for PBXNativeTarget "DriveOS" */;
+			buildPhases = (
+				98F458A019F7542F7929882F /* Sources */,
+				E1A0EE8E1F6B2A52FBB06ECC /* Resources */,
+				2D7B4878AE53A997BB32428C /* Frameworks */,
+				27A0FBA817F4BFB91D461324 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44852F912776ADE259D73153 /* PBXTargetDependency */,
+			);
+			name = DriveOS;
+			packageProductDependencies = (
+				B42F39F6488CE0A8EE1400D0 /* IQKeyboardManagerSwift */,
+			);
+			productName = DriveOS;
+			productReference = 15DC1CE9F50A06025D9E9302 /* DriveOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9230605874F37B38484CCC6D /* DriveOSWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2827131B1BF985D64790811 /* Build configuration list for PBXNativeTarget "DriveOSWidget" */;
+			buildPhases = (
+				7FC4BCFB17496E6D2454EF55 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DriveOSWidget;
+			packageProductDependencies = (
+			);
+			productName = DriveOSWidget;
+			productReference = 8AA0E17CAF42317C1209473D /* DriveOSWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8215E1B44D01AA6AC4A4F66A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 5863B4A95E8766CD8155A240 /* Build configuration list for PBXProject "DriveOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A3468395C466581CA5ED8F87;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C53C125C129101B327DFFA46 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 3DD8B4B5ADB8B2E21AADBDDD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				20D82768C30499B99EB8C747 /* DriveOS */,
+				9230605874F37B38484CCC6D /* DriveOSWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1A0EE8E1F6B2A52FBB06ECC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02C3D87D5AE455ECAF5372B8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7FC4BCFB17496E6D2454EF55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7327865665A50828A78A9628 /* ChargingAttributes.swift in Sources */,
+				B42063927A11A0D0C2A5F428 /* DriveOSWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98F458A019F7542F7929882F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DD22436B209BEC294D774B /* ActionButton.swift in Sources */,
+				34A5F583F9C8FA08A0451632 /* AuthContainerView.swift in Sources */,
+				29152F7C0516F8681FBF99D9 /* BatteryAnalyticsView.swift in Sources */,
+				46694984CCDEC1E8DDE71819 /* BatteryGauge.swift in Sources */,
+				AFBDD4B8F48E57A0147A4ADB /* ChargingAttributes.swift in Sources */,
+				AC2DCBC1DE216C9C2500F882 /* ChargingCenterView.swift in Sources */,
+				FA36D152C37C595422C39655 /* ChargingSession.swift in Sources */,
+				FDAE82C62F9ED54B7D37789C /* ContentView.swift in Sources */,
+				AA1EC60DD2931BE419F28621 /* DashboardView.swift in Sources */,
+				B9B65933D44FA9768D25688D /* DriveOSApp.swift in Sources */,
+				FF5C6FC06C9722981BF8D1E7 /* ForgotPasswordView.swift in Sources */,
+				70E755AD89F1BA903E37F333 /* GlassCard.swift in Sources */,
+				C329B2943628D67B6BC71C96 /* LoginView.swift in Sources */,
+				92B50A85D4F1B6F192F327D3 /* ProfileView.swift in Sources */,
+				512DF764C4DA571990FD243C /* RegisterView.swift in Sources */,
+				7D65011FB65FEC9640456B68 /* RootView.swift in Sources */,
+				87A1645EBB04E63B9488C0D8 /* SplashView.swift in Sources */,
+				67050C11DB5532A5F40C09E9 /* Theme.swift in Sources */,
+				C7A451FAC86E0A12851BE2A6 /* Trip.swift in Sources */,
+				8DDC4EF6D8B964686B976206 /* TripsView.swift in Sources */,
+				28016174F340F3A4F326CECC /* Vehicle.swift in Sources */,
+				546F2B000E8F4A1BA8A872FF /* VehicleRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		44852F912776ADE259D73153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9230605874F37B38484CCC6D /* DriveOSWidget */;
+			targetProxy = EE8F39850D1FF20A780D9AF9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7A9286702199E9D92FDD767C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A1D5563C39A0C473B7658FC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2Z2SRXP4S5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hemang.driveos;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C7A1B3CBCF127F82558F5FC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D5C5A8EBA307742DFBDD4689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2Z2SRXP4S5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hemang.driveos;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E85B4F6ED6EDCBF6CAF0D94B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 2Z2SRXP4S5;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				INFOPLIST_FILE = DriveOSWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hemang.driveos.DriveOSWidget;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAF6607D49C079BB508E6E75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 2Z2SRXP4S5;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				INFOPLIST_FILE = DriveOSWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hemang.driveos.DriveOSWidget;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5863B4A95E8766CD8155A240 /* Build configuration list for PBXProject "DriveOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9286702199E9D92FDD767C /* Debug */,
+				C7A1B3CBCF127F82558F5FC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B2827131B1BF985D64790811 /* Build configuration list for PBXNativeTarget "DriveOSWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85B4F6ED6EDCBF6CAF0D94B /* Debug */,
+				FAF6607D49C079BB508E6E75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CD75733F07AB3DE327703191 /* Build configuration list for PBXNativeTarget "DriveOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1D5563C39A0C473B7658FC9 /* Debug */,
+				D5C5A8EBA307742DFBDD4689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C53C125C129101B327DFFA46 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B42F39F6488CE0A8EE1400D0 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C53C125C129101B327DFFA46 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8215E1B44D01AA6AC4A4F66A /* Project object */;
+}
