@@ -309,15 +309,50 @@ struct DashboardView: View {
     }
     
     private func setupAudioPlayer() {
-        // Look for horn.mp3 in the main bundle. The user will need to drop this in later.
-        if let path = Bundle.main.path(forResource: "horn", ofType: "mp3") {
-            let url = URL(fileURLWithPath: path)
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Could not load horn sound: \(error)")
+        let fileManager = FileManager.default
+        let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let hornURL = docs.appendingPathComponent("horn.wav")
+        
+        // Generate a mathematically realistic car horn (D#4 + F#4 square wave)
+        if !fileManager.fileExists(atPath: hornURL.path) {
+            let sampleRate: Int32 = 44100
+            let duration: Double = 0.5
+            let numSamples = Int(Double(sampleRate) * duration)
+            
+            var data = Data()
+            // WAV Header
+            data.append(contentsOf: [UInt8]("RIFF".utf8))
+            data.append(contentsOf: withUnsafeBytes(of: Int32(36 + numSamples * 2)) { Array($0) })
+            data.append(contentsOf: [UInt8]("WAVE".utf8))
+            data.append(contentsOf: [UInt8]("fmt ".utf8))
+            data.append(contentsOf: withUnsafeBytes(of: Int32(16)) { Array($0) }) // Subchunk1Size
+            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })  // AudioFormat (PCM)
+            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })  // NumChannels (Mono)
+            data.append(contentsOf: withUnsafeBytes(of: sampleRate) { Array($0) }) // SampleRate
+            data.append(contentsOf: withUnsafeBytes(of: sampleRate * 2) { Array($0) }) // ByteRate
+            data.append(contentsOf: withUnsafeBytes(of: Int16(2)) { Array($0) })  // BlockAlign
+            data.append(contentsOf: withUnsafeBytes(of: Int16(16)) { Array($0) }) // BitsPerSample
+            data.append(contentsOf: [UInt8]("data".utf8))
+            data.append(contentsOf: withUnsafeBytes(of: Int32(numSamples * 2)) { Array($0) })
+            
+            // Audio Data (Dissonant car horn chord)
+            let freq1 = 311.13 // D#4
+            let freq2 = 369.99 // F#4
+            for i in 0..<numSamples {
+                let t = Double(i) / Double(sampleRate)
+                let v1 = sin(2.0 * .pi * freq1 * t) > 0 ? 1.0 : -1.0
+                let v2 = sin(2.0 * .pi * freq2 * t) > 0 ? 1.0 : -1.0
+                let sample = Int16((v1 + v2) * 8191) // Mix and scale volume
+                data.append(contentsOf: withUnsafeBytes(of: sample) { Array($0) })
             }
+            try? data.write(to: hornURL)
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: hornURL)
+            audioPlayer?.prepareToPlay()
+        } catch {
+            print("Could not load horn sound: \(error)")
         }
     }
 }
