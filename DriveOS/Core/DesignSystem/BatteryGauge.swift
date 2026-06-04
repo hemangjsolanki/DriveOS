@@ -1,3 +1,10 @@
+//
+//  BatteryGauge.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 
 struct BatteryGauge: View {
@@ -63,6 +70,11 @@ struct BatteryGauge: View {
         .onChange(of: percentage) { newValue in
             withAnimation(.spring(response: 1.0, dampingFraction: 0.8)) {
                 animatedPercentage = newValue
+            }
+        }
+        .onChange(of: isCharging) { newValue in
+            if !newValue {
+                radarRotation = -90 // Reset so it can animate again next time
             }
         }
     }

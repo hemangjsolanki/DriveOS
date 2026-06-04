@@ -1,3 +1,10 @@
+//
+//  GlassCard.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 
 struct GlassCard<Content: View>: View {

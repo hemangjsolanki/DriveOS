@@ -1,3 +1,10 @@
+//
+//  RegisterView.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 
 struct RegisterView: View {
@@ -85,7 +92,7 @@ struct RegisterView: View {
                                 hasLaunchedBefore = true
                                 isLoggedIn = true
                                 withAnimation {
-                                    appState = .main
+                                    appState = .connecting
                                 }
                             }
                         }

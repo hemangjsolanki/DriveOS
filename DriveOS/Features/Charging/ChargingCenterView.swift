@@ -1,8 +1,16 @@
+//
+//  ChargingCenterView.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 import ActivityKit
 
 struct ChargingCenterView: View {
-    @State private var isCharging = false // Start as false so user can click start
+    @AppStorage("isCharging") private var isCharging: Bool = true
+    @AppStorage("batteryPercent") private var batteryPercent: Int = 78
     @State private var currentActivity: Activity<ChargingAttributes>? = nil
     
     var body: some View {
@@ -15,7 +23,7 @@ struct ChargingCenterView: View {
                         // Main Charging Card
                         GlassCard(isGlowing: isCharging) {
                             VStack(spacing: 24) {
-                                BatteryGauge(percentage: 0.78, isCharging: isCharging)
+                                BatteryGauge(percentage: Double(batteryPercent) / 100.0, isCharging: isCharging)
                                     .frame(width: 200, height: 200)
                                 
                                 VStack(spacing: 8) {
@@ -60,9 +68,9 @@ struct ChargingCenterView: View {
                         // Stat Cards (Only show when charging)
                         if isCharging {
                             HStack(spacing: 16) {
-                                StatCard(title: "Power", value: "225 kW", icon: "gauge.medium", accentColor: Theme.primary)
+                                StatCard(title: "Power", value: "225 kW", icon: "bolt.car", accentColor: Theme.primary)
                                 StatCard(title: "Time Left", value: "44m", icon: "timer", accentColor: Color.blue)
-                                StatCard(title: "Added", value: "22%", icon: "arrow.up.right", accentColor: Theme.successText)
+                                StatCard(title: "Added", value: "+22%", icon: "arrow.up.right", accentColor: Theme.successText)
                             }
                             .padding(.horizontal, 24)
                             .transition(.move(edge: .top).combined(with: .opacity))
@@ -128,7 +136,7 @@ struct ChargingCenterView: View {
         
         let attributes = ChargingAttributes(vehicleName: "Model S")
         let initialState = ChargingAttributes.ContentState(
-            percentage: 78,
+            percentage: batteryPercent,
             timeRemaining: "44 min",
             isCharging: true
         )

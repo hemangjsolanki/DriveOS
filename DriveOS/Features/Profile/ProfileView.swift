@@ -1,8 +1,18 @@
+//
+//  ProfileView.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 
 struct ProfileView: View {
+    @Binding var appState: AppState
+    
     @State private var notificationsEnabled = true
     @State private var darkTheme = true
+    @State private var showingLogoutAlert = false
     
     var body: some View {
         NavigationStack {
@@ -60,34 +70,30 @@ struct ProfileView: View {
                                         }
                                     }
                                     .tint(Theme.primary)
-                                    
-                                    Divider().background(Theme.surfaceHighlight)
-                                    
-                                    Toggle(isOn: $darkTheme) {
-                                        HStack {
-                                            Image(systemName: "moon.fill")
-                                                .foregroundColor(Theme.primary)
-                                                .frame(width: 30)
-                                            Text("Dark Theme First")
-                                                .foregroundColor(Theme.textPrimary)
-                                        }
-                                    }
-                                    .tint(Theme.primary)
                                 }
                             }
                             .padding(.horizontal)
                             
-                            GlassCard {
-                                HStack {
-                                    Image(systemName: "arrow.right.square.fill")
-                                        .foregroundColor(Theme.danger)
-                                        .frame(width: 30)
-                                    Text("Sign Out")
-                                        .foregroundColor(Theme.danger)
-                                    Spacer()
+                            Button(action: { showingLogoutAlert = true }) {
+                                GlassCard {
+                                    HStack {
+                                        Image(systemName: "arrow.right.square.fill")
+                                            .foregroundColor(Theme.danger)
+                                            .frame(width: 30)
+                                        Text("Sign Out")
+                                            .foregroundColor(Theme.danger)
+                                        Spacer()
+                                    }
                                 }
                             }
+                            .buttonStyle(.plain)
                             .padding(.horizontal)
+                            .alert("Sign Out", isPresented: $showingLogoutAlert) {
+                                Button("Cancel", role: .cancel) { }
+                                Button("Sign Out", role: .destructive, action: signOut)
+                            } message: {
+                                Text("Are you sure you want to sign out of DriveOS? This will disconnect your vehicle.")
+                            }
                         }
                     }
                     .padding(.bottom, 40)
@@ -96,8 +102,23 @@ struct ProfileView: View {
             .navigationTitle("Profile")
         }
     }
+    
+    private func signOut() {
+        // Reset all AppStorage variables and settings
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+        
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        // Return to Login Flow
+        withAnimation(.easeInOut(duration: 0.6)) {
+            appState = .auth
+        }
+    }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(appState: .constant(.main))
 }

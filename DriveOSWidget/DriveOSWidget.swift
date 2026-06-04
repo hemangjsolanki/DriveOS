@@ -1,3 +1,10 @@
+//
+//  DriveOSWidget.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import WidgetKit
 import SwiftUI
 import ActivityKit

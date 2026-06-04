@@ -1,42 +1,11 @@
 //
-//  RootView.swift
+//  ConnectingView.swift
 //  DriveOS
 //
 //  Created by Hemang J Solanki on 04/06/26.
 //
 
 import SwiftUI
-
-enum AppState {
-    case splash
-    case auth
-    case connecting
-    case main
-}
-
-struct RootView: View {
-    @State private var appState: AppState = .splash
-    
-    var body: some View {
-        Group {
-            switch appState {
-            case .splash:
-                SplashView(appState: $appState)
-            case .auth:
-                AuthContainerView(appState: $appState)
-            case .connecting:
-                ConnectingView(appState: $appState)
-            case .main:
-                ContentView(appState: $appState)
-            }
-        }
-        .animation(.easeInOut(duration: 0.5), value: appState)
-    }
-}
-
-#Preview {
-    RootView()
-}
 
 struct ConnectingView: View {
     @Binding var appState: AppState
@@ -152,4 +121,8 @@ struct ConnectingView: View {
             }
         }
     }
+}
+
+#Preview {
+    ConnectingView(appState: .constant(.connecting))
 }

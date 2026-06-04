@@ -1,3 +1,10 @@
+//
+//  LoginView.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 
 struct LoginView: View {
@@ -86,7 +93,7 @@ struct LoginView: View {
                                 hasLaunchedBefore = true
                                 isLoggedIn = true
                                 withAnimation {
-                                    appState = .main
+                                    appState = .connecting
                                 }
                             }
                         }
@@ -135,7 +142,7 @@ struct LoginView: View {
         // Simulate network request
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation {
-                appState = .main
+                appState = .connecting
             }
         }
     }
@@ -183,14 +190,16 @@ struct CustomSecureField: View {
                 .foregroundColor(Theme.textSecondary)
                 .frame(width: 20)
             
-            if isSecured {
+            ZStack(alignment: .leading) {
                 SecureField(placeholder, text: $text)
                     .foregroundColor(.white)
-            } else {
+                    .opacity(isSecured ? 1 : 0)
+                
                 TextField(placeholder, text: $text)
                     .foregroundColor(.white)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .opacity(isSecured ? 0 : 1)
             }
             
             Button(action: {

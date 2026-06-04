@@ -1,3 +1,10 @@
+//
+//  DashboardView.swift
+//  DriveOS
+//
+//  Created by Hemang J Solanki on 04/06/26.
+//
+
 import SwiftUI
 import SwiftData
 import MapKit
@@ -6,14 +13,16 @@ import AVFoundation
 struct DashboardView: View {
     @Query private var vehicles: [Vehicle]
     
-    // Realistic States
-    @State private var isLocked: Bool = true
-    @State private var isFlashing: Bool = false
-    @State private var isHeadlightsOn: Bool = false
-    @State private var isFrunkOpen: Bool = false
-    @State private var isTrunkOpen: Bool = false
-    @State private var isClimateOn: Bool = false
-    @State private var targetTemp: Int = 72
+    // Vehicle State
+    @AppStorage("isLocked") private var isLocked: Bool = true
+    @AppStorage("isCharging") private var isCharging: Bool = true
+    @AppStorage("batteryPercent") private var batteryPercent: Int = 78
+    @AppStorage("isFrunkOpen") private var isFrunkOpen: Bool = false
+    @AppStorage("isTrunkOpen") private var isTrunkOpen: Bool = false
+    @AppStorage("isHeadlightsOn") private var isHeadlightsOn: Bool = false
+    @AppStorage("isFlashing") private var isFlashing: Bool = false
+    @AppStorage("isClimateOn") private var isClimateOn: Bool = false
+    @AppStorage("targetTemp") private var targetTemp: Int = 72
     
     // Audio Player for Horn
     @State private var audioPlayer: AVAudioPlayer?
@@ -33,16 +42,38 @@ struct DashboardView: View {
                                 Text("Model S")
                                     .font(.system(size: 34, weight: .bold, design: .rounded))
                                     .foregroundColor(Theme.textPrimary)
-                                Text("Plaid • Parked")
-                                    .font(.subheadline)
-                                    .foregroundColor(Theme.textSecondary)
+                                HStack(spacing: 8) {
+                                    Text("Plaid • Parked")
+                                        .font(.subheadline)
+                                        .foregroundColor(Theme.textSecondary)
+                                        
+                                    Text("•")
+                                        .font(.subheadline)
+                                        .foregroundColor(Theme.textSecondary.opacity(0.5))
+                                        
+                                    Image(systemName: "bolt.fill")
+                                        .foregroundColor(Theme.accent)
+                                        .font(.caption)
+                                    Text("\(batteryPercent)%")
+                                        .font(.subheadline.bold())
+                                        .foregroundColor(Theme.textPrimary)
+                                }
                             }
                             Spacer()
                             
                             Button(action: {
+                                triggerHaptic()
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
                                     isLocked.toggle()
+                                    
+                                    if isLocked {
+                                        // Security Auto-Close: Shut all doors and lights when locking
+                                        isFrunkOpen = false
+                                        isTrunkOpen = false
+                                        isHeadlightsOn = false
+                                    }
                                 }
+                                flashLights()
                             }) {
                                 Image(systemName: isLocked ? "lock.fill" : "lock.open.fill")
                                     .font(.system(size: 20))
@@ -76,36 +107,9 @@ struct DashboardView: View {
                             }
                         }
                         
-                        // Status Grid
-                        HStack(spacing: 16) {
-                            // Battery Card
-                            GlassCard {
-                                VStack(alignment: .leading, spacing: 0) {
-                                    HStack {
-                                        Image(systemName: "bolt.fill")
-                                            .foregroundColor(Theme.accent)
-                                        Text("Battery")
-                                            .font(.caption.bold())
-                                            .foregroundColor(Theme.textSecondary)
-                                    }
-                                    
-                                    Spacer(minLength: 16)
-                                    
-                                    Text("78")
-                                        .font(.system(size: 42, weight: .black, design: .rounded))
-                                    + Text("%")
-                                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                                        .foregroundColor(Theme.textSecondary)
-                                    
-                                    Spacer(minLength: 8)
-                                    
-                                    Text("Est. 312 mi")
-                                        .font(.caption)
-                                        .foregroundColor(Theme.textSecondary)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .frame(maxHeight: .infinity)
-                            }
+                        // Status Stack
+                        VStack(spacing: 16) {
+
                             
                             // Climate Card
                             GlassCard {
@@ -133,7 +137,7 @@ struct DashboardView: View {
                                         }
                                     }
                                     
-                                    Spacer(minLength: 16)
+                                    Spacer(minLength: 20)
                                     
                                     HStack {
                                         Button(action: {
@@ -146,7 +150,7 @@ struct DashboardView: View {
                                             Image(systemName: "chevron.left")
                                                 .font(.title2.bold())
                                                 .foregroundColor(.cyan)
-                                                .frame(width: 40, height: 40)
+                                                .frame(width: 48, height: 48)
                                                 .background(Color.white.opacity(0.05))
                                                 .clipShape(Circle())
                                         }
@@ -155,15 +159,16 @@ struct DashboardView: View {
                                         
                                         HStack(alignment: .top, spacing: 0) {
                                             Text("\(targetTemp)")
-                                                .font(.system(size: 38, weight: .black, design: .rounded))
+                                                .font(.system(size: 48, weight: .black, design: .rounded))
+                                                .monospacedDigit()
                                                 .contentTransition(.numericText())
                                                 .id(targetTemp)
                                             Text("°")
-                                                .font(.title2.bold())
+                                                .font(.title.bold())
                                         }
+                                        .frame(width: 90, height: 50) // Locks the height and width so the UI stops resizing
                                         .foregroundColor(colorForTemp(targetTemp))
                                         .shadow(color: colorForTemp(targetTemp).opacity(0.5), radius: 10, x: 0, y: 0)
-                                        .fixedSize() // Prevents wrapping completely
                                         
                                         Spacer()
                                         
@@ -177,27 +182,26 @@ struct DashboardView: View {
                                             Image(systemName: "chevron.right")
                                                 .font(.title2.bold())
                                                 .foregroundColor(.orange)
-                                                .frame(width: 40, height: 40)
+                                                .frame(width: 48, height: 48)
                                                 .background(Color.white.opacity(0.05))
                                                 .clipShape(Circle())
                                         }
                                     }
                                     
-                                    Spacer(minLength: 16)
+                                    Spacer(minLength: 20)
                                     
                                     HStack {
                                         Spacer()
                                         Image(systemName: targetTemp < 68 ? "snowflake" : (targetTemp > 75 ? "flame.fill" : "aqi.medium"))
                                             .font(.caption2)
+                                            .frame(width: 24, height: 24) // Locks the height of the icon row so it doesn't jitter
                                             .foregroundColor(colorForTemp(targetTemp))
                                             .symbolEffect(.pulse, options: .repeating, isActive: isClimateOn)
                                     }
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .frame(maxHeight: .infinity)
                             }
                         }
-                        .fixedSize(horizontal: false, vertical: true) // Forces HStack to fit the tallest item perfectly
                         .padding(.horizontal, 24)
                         
                         // Quick Controls
@@ -344,12 +348,27 @@ struct DashboardView: View {
         generator.impactOccurred()
     }
     
+    private func flashLights() {
+        for i in 0..<2 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    isFlashing = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        isFlashing = false
+                    }
+                }
+            }
+        }
+    }
+    
     private func setupAudioPlayer() {
         let fileManager = FileManager.default
         let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let hornURL = docs.appendingPathComponent("horn.wav")
+        let hornURL = docs.appendingPathComponent("real_horn_v2.wav")
         
-        // Generate a mathematically realistic car horn (D#4 + F#4 square wave)
+        // Generate a hyper-realistic car horn using Sawtooth waves + harmonics
         if !fileManager.fileExists(atPath: hornURL.path) {
             let sampleRate: Int32 = 44100
             let duration: Double = 0.5
@@ -361,24 +380,37 @@ struct DashboardView: View {
             data.append(contentsOf: withUnsafeBytes(of: Int32(36 + numSamples * 2)) { Array($0) })
             data.append(contentsOf: [UInt8]("WAVE".utf8))
             data.append(contentsOf: [UInt8]("fmt ".utf8))
-            data.append(contentsOf: withUnsafeBytes(of: Int32(16)) { Array($0) }) // Subchunk1Size
-            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })  // AudioFormat (PCM)
-            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })  // NumChannels (Mono)
-            data.append(contentsOf: withUnsafeBytes(of: sampleRate) { Array($0) }) // SampleRate
-            data.append(contentsOf: withUnsafeBytes(of: sampleRate * 2) { Array($0) }) // ByteRate
-            data.append(contentsOf: withUnsafeBytes(of: Int16(2)) { Array($0) })  // BlockAlign
-            data.append(contentsOf: withUnsafeBytes(of: Int16(16)) { Array($0) }) // BitsPerSample
+            data.append(contentsOf: withUnsafeBytes(of: Int32(16)) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: Int16(1)) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: sampleRate) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: sampleRate * 2) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: Int16(2)) { Array($0) })
+            data.append(contentsOf: withUnsafeBytes(of: Int16(16)) { Array($0) })
             data.append(contentsOf: [UInt8]("data".utf8))
             data.append(contentsOf: withUnsafeBytes(of: Int32(numSamples * 2)) { Array($0) })
             
-            // Audio Data (Dissonant car horn chord)
-            let freq1 = 311.13 // D#4
-            let freq2 = 369.99 // F#4
+            // Audio Data (Dissonant Sawtooth chord: 400Hz + 500Hz)
+            let freq1 = 400.0
+            let freq2 = 500.0
+            let freq3 = 415.0 // Dissonance harmonic
+            
             for i in 0..<numSamples {
                 let t = Double(i) / Double(sampleRate)
-                let v1 = sin(2.0 * .pi * freq1 * t) > 0 ? 1.0 : -1.0
-                let v2 = sin(2.0 * .pi * freq2 * t) > 0 ? 1.0 : -1.0
-                let sample = Int16((v1 + v2) * 8191) // Mix and scale volume
+                
+                // Sawtooth waves for rich, raspy timbre
+                let v1 = 2.0 * (t * freq1 - floor(0.5 + t * freq1))
+                let v2 = 2.0 * (t * freq2 - floor(0.5 + t * freq2))
+                let v3 = 2.0 * (t * freq3 - floor(0.5 + t * freq3))
+                
+                // Volume Envelope: Fast attack, slight decay
+                var env = 1.0
+                if t < 0.05 { env = t / 0.05 }
+                if t > duration - 0.1 { env = (duration - t) / 0.1 }
+                
+                let mixed = (v1 + v2 + (v3 * 0.5)) / 2.5
+                let sample = Int16(mixed * 12000.0 * env)
+                
                 data.append(contentsOf: withUnsafeBytes(of: sample) { Array($0) })
             }
             try? data.write(to: hornURL)
@@ -458,10 +490,52 @@ struct CarSilhouetteView: View {
                 }
                 .rotationEffect(.degrees(isTrunkOpen ? -45 : 0), anchor: UnitPoint(x: 0.85, y: 0.4))
                 
-                // Climate Control Airflow
+                // Dark Glass Tint
+                SleekCarWindows()
+                    .fill(Color.black.opacity(0.85))
+                
+                // Climate Control Airflow (Inside the cabin)
                 if isClimateOn {
                     CabinClimateAura(targetTemp: targetTemp)
                         .mask(SleekCarWindows())
+                }
+                
+                // Glass Reflection & Edge
+                SleekCarWindows()
+                    .stroke(
+                        LinearGradient(colors: [.white.opacity(0.6), .clear], startPoint: .topLeading, endPoint: .bottomTrailing),
+                        lineWidth: 1.5
+                    )
+                
+                // Side Mirror & Lighting
+                ZStack {
+                    // Puddle Light (when unlocked)
+                    if !isLocked {
+                        Ellipse()
+                            .fill(RadialGradient(colors: [.white.opacity(0.4), .clear], center: .top, startRadius: 1, endRadius: 30))
+                            .frame(width: geo.size.width * 0.15, height: geo.size.height * 0.25)
+                            .position(x: geo.size.width * 0.42, y: geo.size.height * 0.6) // Shining down from mirror
+                            .blendMode(.screen)
+                            .animation(.easeInOut(duration: 0.5), value: isLocked)
+                    }
+                    
+                    // Mirror Housing
+                    Capsule()
+                        .fill(LinearGradient(colors: [.white.opacity(0.2), .black], startPoint: .top, endPoint: .bottom))
+                        .frame(width: geo.size.width * 0.05, height: geo.size.height * 0.035)
+                        .rotationEffect(.degrees(-10))
+                        .position(x: geo.size.width * 0.42, y: geo.size.height * 0.47)
+                        .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 2)
+                    
+                    // Mirror Turn Signal
+                    if isFlashing {
+                        Capsule()
+                            .fill(Color.orange)
+                            .frame(width: geo.size.width * 0.02, height: geo.size.height * 0.01)
+                            .position(x: geo.size.width * 0.41, y: geo.size.height * 0.475)
+                            .blur(radius: 2)
+                            .shadow(color: .orange, radius: 5, x: 0, y: 0)
+                    }
                 }
                 
                 // Front Headlight
