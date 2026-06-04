@@ -63,7 +63,8 @@ struct DashboardView: View {
                                 isFrunkOpen: isFrunkOpen,
                                 isTrunkOpen: isTrunkOpen,
                                 isLocked: isLocked,
-                                isClimateOn: isClimateOn
+                                isClimateOn: isClimateOn,
+                                targetTemp: targetTemp
                             )
                                 .offset(y: showVehicle ? 0 : 20)
                                 .opacity(showVehicle ? 1 : 0)
@@ -77,8 +78,9 @@ struct DashboardView: View {
                         
                         // Status Grid
                         HStack(spacing: 16) {
+                            // Battery Card
                             GlassCard {
-                                VStack(alignment: .leading, spacing: 12) {
+                                VStack(alignment: .leading, spacing: 0) {
                                     HStack {
                                         Image(systemName: "bolt.fill")
                                             .foregroundColor(Theme.accent)
@@ -87,81 +89,115 @@ struct DashboardView: View {
                                             .foregroundColor(Theme.textSecondary)
                                     }
                                     
-                                    HStack(alignment: .lastTextBaseline, spacing: 4) {
-                                        Text("78")
-                                            .font(.system(size: 32, weight: .bold, design: .rounded))
-                                        Text("%")
-                                            .font(.callout.bold())
-                                            .foregroundColor(Theme.textSecondary)
-                                    }
+                                    Spacer(minLength: 16)
+                                    
+                                    Text("78")
+                                        .font(.system(size: 42, weight: .black, design: .rounded))
+                                    + Text("%")
+                                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                                        .foregroundColor(Theme.textSecondary)
+                                    
+                                    Spacer(minLength: 8)
                                     
                                     Text("Est. 312 mi")
                                         .font(.caption)
                                         .foregroundColor(Theme.textSecondary)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxHeight: .infinity)
                             }
                             
+                            // Climate Card
                             GlassCard {
-                                VStack(alignment: .leading, spacing: 12) {
+                                VStack(alignment: .leading, spacing: 0) {
                                     HStack {
                                         Image(systemName: "fanblades.fill")
-                                            .foregroundColor(isClimateOn ? Theme.primary : Theme.textSecondary)
+                                            .foregroundColor(isClimateOn ? colorForTemp(targetTemp) : Theme.textSecondary)
                                             .symbolEffect(.variableColor.iterative, options: .repeating, isActive: isClimateOn)
-                                        Text(isClimateOn ? "Climate On" : "Climate Off")
-                                            .font(.caption.bold())
-                                            .foregroundColor(isClimateOn ? Theme.primary : Theme.textSecondary)
+                                        Text(isClimateOn ? "CLIMATE ON" : "CLIMATE OFF")
+                                            .font(.system(.caption, design: .rounded).bold())
+                                            .foregroundColor(isClimateOn ? colorForTemp(targetTemp) : Theme.textSecondary)
                                         
                                         Spacer()
                                         
-                                        Toggle("", isOn: $isClimateOn.animation(.spring()))
-                                            .labelsHidden()
-                                            .tint(Theme.primary)
-                                            .scaleEffect(0.7)
-                                    }
-                                    
-                                    HStack(spacing: 8) {
                                         Button(action: {
                                             triggerHaptic()
-                                            if targetTemp > 60 { targetTemp -= 1 }
-                                            isClimateOn = true
+                                            withAnimation(.spring()) {
+                                                isClimateOn.toggle()
+                                            }
                                         }) {
-                                            Image(systemName: "minus.circle.fill")
+                                            Image(systemName: "power.circle.fill")
                                                 .font(.title2)
-                                                .foregroundColor(Theme.textSecondary)
+                                                .foregroundColor(isClimateOn ? colorForTemp(targetTemp) : .gray.opacity(0.5))
+                                                .shadow(color: isClimateOn ? colorForTemp(targetTemp) : .clear, radius: 5)
+                                        }
+                                    }
+                                    
+                                    Spacer(minLength: 16)
+                                    
+                                    HStack {
+                                        Button(action: {
+                                            triggerHaptic()
+                                            withAnimation(.spring()) {
+                                                if targetTemp > 60 { targetTemp -= 1 }
+                                                isClimateOn = true
+                                            }
+                                        }) {
+                                            Image(systemName: "chevron.left")
+                                                .font(.title2.bold())
+                                                .foregroundColor(.cyan)
+                                                .frame(width: 40, height: 40)
+                                                .background(Color.white.opacity(0.05))
+                                                .clipShape(Circle())
                                         }
                                         
-                                        HStack(alignment: .firstTextBaseline, spacing: 2) {
+                                        Spacer()
+                                        
+                                        HStack(alignment: .top, spacing: 0) {
                                             Text("\(targetTemp)")
-                                                .font(.system(size: 34, weight: .black, design: .rounded))
-                                                .foregroundColor(.white)
+                                                .font(.system(size: 38, weight: .black, design: .rounded))
                                                 .contentTransition(.numericText())
                                                 .id(targetTemp)
                                             Text("°")
                                                 .font(.title2.bold())
-                                                .foregroundColor(.gray)
                                         }
-                                        .frame(maxWidth: .infinity)
+                                        .foregroundColor(colorForTemp(targetTemp))
+                                        .shadow(color: colorForTemp(targetTemp).opacity(0.5), radius: 10, x: 0, y: 0)
+                                        .fixedSize() // Prevents wrapping completely
+                                        
+                                        Spacer()
                                         
                                         Button(action: {
                                             triggerHaptic()
-                                            if targetTemp < 85 { targetTemp += 1 }
-                                            isClimateOn = true
+                                            withAnimation(.spring()) {
+                                                if targetTemp < 85 { targetTemp += 1 }
+                                                isClimateOn = true
+                                            }
                                         }) {
-                                            Image(systemName: "plus.circle.fill")
-                                                .font(.title2)
-                                                .foregroundColor(Theme.primary)
+                                            Image(systemName: "chevron.right")
+                                                .font(.title2.bold())
+                                                .foregroundColor(.orange)
+                                                .frame(width: 40, height: 40)
+                                                .background(Color.white.opacity(0.05))
+                                                .clipShape(Circle())
                                         }
                                     }
                                     
-                                    Text("Interior 75°")
-                                        .font(.caption2.bold())
-                                        .foregroundColor(Theme.textSecondary)
-                                        .frame(maxWidth: .infinity, alignment: .center)
+                                    Spacer(minLength: 16)
+                                    
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: targetTemp < 68 ? "snowflake" : (targetTemp > 75 ? "flame.fill" : "aqi.medium"))
+                                            .font(.caption2)
+                                            .foregroundColor(colorForTemp(targetTemp))
+                                            .symbolEffect(.pulse, options: .repeating, isActive: isClimateOn)
+                                    }
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxHeight: .infinity)
                             }
                         }
+                        .fixedSize(horizontal: false, vertical: true) // Forces HStack to fit the tallest item perfectly
                         .padding(.horizontal, 24)
                         
                         // Quick Controls
@@ -355,6 +391,13 @@ struct DashboardView: View {
             print("Could not load horn sound: \(error)")
         }
     }
+    
+    // Dynamic Temperature Color Helper
+    private func colorForTemp(_ temp: Int) -> Color {
+        if temp < 68 { return .cyan }
+        else if temp > 75 { return .orange }
+        else { return .white }
+    }
 }
 
 // MARK: - Supporting Views
@@ -366,6 +409,7 @@ struct CarSilhouetteView: View {
     var isTrunkOpen: Bool
     var isLocked: Bool
     var isClimateOn: Bool = false
+    var targetTemp: Int = 72
     
     @State private var lockScale: CGFloat = 1.0
     
@@ -416,12 +460,8 @@ struct CarSilhouetteView: View {
                 
                 // Climate Control Airflow
                 if isClimateOn {
-                    Image(systemName: "wind")
-                        .font(.system(size: 44, weight: .light))
-                        .foregroundColor(.cyan.opacity(0.9))
-                        .symbolEffect(.variableColor.iterative.reversing, options: .repeating)
-                        .position(x: geo.size.width * 0.6, y: geo.size.height * 0.15)
-                        .shadow(color: .cyan, radius: 10, x: 0, y: 0)
+                    CabinClimateAura(targetTemp: targetTemp)
+                        .mask(SleekCarWindows())
                 }
                 
                 // Front Headlight
@@ -489,6 +529,28 @@ struct SleekCarBody: Shape {
         p.addQuadCurve(to: CGPoint(x: w * 0.85, y: h * 0.8), control: CGPoint(x: w * 0.98, y: h * 0.7))
         // Bottom floor
         p.addLine(to: CGPoint(x: w * 0.15, y: h * 0.8))
+        
+        p.closeSubpath()
+        return p
+    }
+}
+
+struct SleekCarWindows: Shape {
+    func path(in rect: CGRect) -> Path {
+        var p = Path()
+        let w = rect.width
+        let h = rect.height
+        
+        // Start at base of windshield
+        p.move(to: CGPoint(x: w * 0.35, y: h * 0.45))
+        // Windshield curve
+        p.addQuadCurve(to: CGPoint(x: w * 0.5, y: h * 0.25), control: CGPoint(x: w * 0.42, y: h * 0.28))
+        // Roof curve
+        p.addQuadCurve(to: CGPoint(x: w * 0.7, y: h * 0.25), control: CGPoint(x: w * 0.6, y: h * 0.23))
+        // Rear window curve
+        p.addQuadCurve(to: CGPoint(x: w * 0.85, y: h * 0.4), control: CGPoint(x: w * 0.78, y: h * 0.28))
+        // Bottom window sill (straight line back to windshield base)
+        p.addLine(to: CGPoint(x: w * 0.35, y: h * 0.45))
         
         p.closeSubpath()
         return p
@@ -612,6 +674,76 @@ struct SleekWheelView: View {
                     .frame(width: w * 0.06)
             }
             .position(x: w/2, y: w/2)
+        }
+    }
+}
+
+// MARK: - Advanced Custom Animations
+
+struct CabinClimateAura: View {
+    var targetTemp: Int
+    @State private var isAnimating = false
+    
+    var flowColor: Color {
+        targetTemp < 68 ? Color.cyan : (targetTemp > 75 ? Color.orange : Color.white)
+    }
+    
+    var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                // 1. Air Vent Core Glow (Front Dashboard Vents)
+                Capsule()
+                    .fill(flowColor.opacity(isAnimating ? 0.6 : 0.2))
+                    .frame(width: geo.size.width * 0.15, height: geo.size.height * 0.08)
+                    .blur(radius: 12)
+                    .position(x: geo.size.width * 0.45, y: geo.size.height * 0.4)
+                    .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: isAnimating)
+                
+                // 2. Sweeping Airflow Waves (Flowing Front to Back)
+                ForEach(0..<3) { i in
+                    Capsule()
+                        .fill(LinearGradient(colors: [flowColor.opacity(0.8), .clear], startPoint: .leading, endPoint: .trailing))
+                        .frame(
+                            width: geo.size.width * (isAnimating ? 0.3 : 0.05),
+                            height: geo.size.height * (isAnimating ? 0.15 : 0.02)
+                        )
+                        .position(
+                            x: geo.size.width * (isAnimating ? 0.75 : 0.45),
+                            y: geo.size.height * (isAnimating ? 0.32 : 0.4)
+                        )
+                        .blur(radius: 5)
+                        .opacity(isAnimating ? 0 : 1)
+                        .animation(
+                            .easeOut(duration: 2.5)
+                            .repeatForever(autoreverses: false)
+                            .delay(Double(i) * 0.8),
+                            value: isAnimating
+                        )
+                }
+                
+                // 3. Flowing Micro-Particles (Drifting from vents to rear)
+                ForEach(0..<8) { i in
+                    Circle()
+                        .fill(flowColor)
+                        .frame(width: 3, height: 3)
+                        .blur(radius: 1)
+                        .position(
+                            x: geo.size.width * (isAnimating ? Double.random(in: 0.6...0.85) : 0.45),
+                            y: geo.size.height * (isAnimating ? Double.random(in: 0.28...0.4) : 0.4)
+                        )
+                        .opacity(isAnimating ? 0 : 1)
+                        .scaleEffect(isAnimating ? 2.0 : 0.1)
+                        .animation(
+                            .easeOut(duration: Double.random(in: 1.5...3.0))
+                            .repeatForever(autoreverses: false)
+                            .delay(Double.random(in: 0...2)),
+                            value: isAnimating
+                        )
+                }
+            }
+            .onAppear {
+                isAnimating = true
+            }
         }
     }
 }
